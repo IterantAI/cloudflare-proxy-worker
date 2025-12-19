@@ -10,7 +10,6 @@
 export interface Env {
   TARGET_HOST: string;
   BRAND_ID: string;
-  ROUTING_PATH: string;
   CACHE_TTL: string;
 }
 
@@ -23,18 +22,10 @@ export default {
     ctx: ExecutionContext
   ): Promise<Response> {
     const url = new URL(request.url);
-    const routingPath = env.ROUTING_PATH || '/marketing';
     const targetHost = env.TARGET_HOST || 'sites.iterant.ai';
 
     const parsedTtl = parseInt(env.CACHE_TTL || '3600', 10);
     const cacheTtl = Number.isNaN(parsedTtl) ? 3600 : Math.max(0, parsedTtl);
-
-    if (!url.pathname.startsWith(routingPath)) {
-      return new Response('Not Found', {
-        status: 404,
-        headers: { 'Content-Type': 'text/plain' },
-      });
-    }
 
     if (!env.BRAND_ID) {
       return new Response('Configuration error: BRAND_ID not set', {

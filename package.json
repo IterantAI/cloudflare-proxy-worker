@@ -32,13 +32,10 @@
   "cloudflare": {
     "bindings": {
       "BRAND_ID": {
-        "description": "Your Iterant Brand ID. Find it in your [Iterant Dashboard](https://app.iterant.ai) under Settings > Domains."
+        "description": "Your Iterant Brand ID. Find it in your [Iterant Dashboard](https://dashboard.iterant.ai) under Settings > Domains."
       },
       "TARGET_HOST": {
         "description": "Iterant platform host. Default: `sites.iterant.ai`. Only change if instructed by Iterant support."
-      },
-      "ROUTING_PATH": {
-        "description": "URL path prefix to proxy (e.g., `/marketing`). Requests to `yourdomain.com/marketing/*` will be proxied."
       },
       "CACHE_TTL": {
         "description": "Cache duration in seconds. Default: `3600` (1 hour). Set to `0` to disable caching."
