@@ -1,0 +1,4 @@
+# Copy this file to .dev.vars and fill in your values
+# Get your BRAND_ID from your Iterant Dashboard
+
+BRAND_ID=brnd_your_brand_id_here

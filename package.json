@@ -1,0 +1,48 @@
+{
+  "name": "iterant-cloudflare-proxy",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "Cloudflare Worker that proxies requests to the Iterant platform for seamless landing page integration",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "keywords": [
+    "cloudflare",
+    "worker",
+    "proxy",
+    "iterant"
+  ],
+  "author": "Iterant AI",
+  "license": "MIT",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20251219.0",
+    "@typescript-eslint/eslint-plugin": "^8.50.0",
+    "@typescript-eslint/parser": "^8.50.0",
+    "eslint": "^9.39.2",
+    "prettier": "^3.7.4",
+    "typescript": "^5.9.3",
+    "wrangler": "^4.56.0"
+  },
+  "cloudflare": {
+    "bindings": {
+      "BRAND_ID": {
+        "description": "Your Iterant Brand ID. Find it in your [Iterant Dashboard](https://app.iterant.ai) under Settings > Domains."
+      },
+      "TARGET_HOST": {
+        "description": "Iterant platform host. Default: `sites.iterant.ai`. Only change if instructed by Iterant support."
+      },
+      "ROUTING_PATH": {
+        "description": "URL path prefix to proxy (e.g., `/marketing`). Requests to `yourdomain.com/marketing/*` will be proxied."
+      },
+      "CACHE_TTL": {
+        "description": "Cache duration in seconds. Default: `3600` (1 hour). Set to `0` to disable caching."
+      }
+    }
+  }
+}
