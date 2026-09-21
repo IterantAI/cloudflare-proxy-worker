@@ -31,14 +31,14 @@
   },
   "cloudflare": {
     "bindings": {
-      "BRAND_ID": {
-        "description": "Your Iterant Brand ID. Find it in your [Iterant Dashboard](https://dashboard.iterant.ai) under Settings > Domains."
-      },
       "TARGET_HOST": {
-        "description": "Iterant platform host. Default: `sites.iterant.ai`. Only change if instructed by Iterant support."
+        "description": "The Iterant origin that serves your pages, host only. Iterant gives you this: it looks like your-brand.iterant.site."
+      },
+      "BRAND_ID": {
+        "description": "The brand this proxy serves, a UUID from your Iterant dashboard."
       },
       "CACHE_TTL": {
-        "description": "Cache duration in seconds. Default: `3600` (1 hour). Set to `0` to disable caching."
+        "description": "Seconds to cache a proxied page at the edge. 3600 is a good default; 0 caches nothing."
       }
     }
   }

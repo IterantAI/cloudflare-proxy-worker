@@ -22,7 +22,17 @@ export default {
     ctx: ExecutionContext
   ): Promise<Response> {
     const url = new URL(request.url);
-    const targetHost = env.TARGET_HOST || 'sites.iterant.ai';
+    // No fallback host. The old default, sites.iterant.ai, is a retired v1
+    // host: a misconfigured proxy silently served nothing from it rather than
+    // saying so.
+    const targetHost = env.TARGET_HOST;
+
+    if (!targetHost) {
+      return new Response('Configuration error: TARGET_HOST not set', {
+        status: 500,
+        headers: { 'Content-Type': 'text/plain' },
+      });
+    }
 
     const parsedTtl = parseInt(env.CACHE_TTL || '3600', 10);
     const cacheTtl = Number.isNaN(parsedTtl) ? 3600 : Math.max(0, parsedTtl);
@@ -80,7 +90,9 @@ export default {
         );
         returnResponse.headers.set('X-Cache-Status', 'MISS');
 
-        const cacheKey = new Request(url.toString(), { method: request.method });
+        const cacheKey = new Request(url.toString(), {
+          method: request.method,
+        });
         ctx.waitUntil(
           (async () => {
             const cacheResponse = new Response(

@@ -17,11 +17,11 @@ A Cloudflare Worker that proxies requests from your domain to the Iterant platfo
 
 ## Configuration
 
-| Variable      | Required | Default            | Description                              |
-| ------------- | -------- | ------------------ | ---------------------------------------- |
-| `BRAND_ID`    | Yes      | -                  | Your Iterant Brand ID (set as secret)    |
-| `TARGET_HOST` | No       | `sites.iterant.ai` | Iterant platform host                    |
-| `CACHE_TTL`   | No       | `3600`             | Cache duration in seconds (0 to disable) |
+| Variable      | Required | Default | Description                                      |
+| ------------- | -------- | ------- | ------------------------------------------------ |
+| `TARGET_HOST` | Yes      | -       | The Iterant origin serving your pages, host only |
+| `BRAND_ID`    | Yes      | -       | The brand this proxy serves, a UUID              |
+| `CACHE_TTL`   | No       | `3600`  | Cache duration in seconds (0 to disable)         |
 
 ## Post-Deployment Setup
 
@@ -162,17 +162,18 @@ npm run format
 
 ### `BRAND_ID` (Required)
 
-Your unique brand identifier from Iterant. Find it in your [Iterant Dashboard](https://dashboard.iterant.ai) under **Settings > Domains**.
+The brand this proxy serves. Find it in your [Iterant Dashboard](https://dashboard.iterant.ai) under **Settings > Domains**.
 
-Format: `brnd_xxxxxxxxxxxx`
+Format: a UUID, like `eb39b3ec-41f5-41db-ba81-e88b40ceac37`.
 
-### `TARGET_HOST`
+### `TARGET_HOST` (Required)
 
-The Iterant platform hostname to proxy requests to.
+The Iterant origin that serves your brand's pages, host only, with no scheme.
 
-Default: `sites.iterant.ai`
+Format: `your-brand.iterant.site`.
 
-> Only change this if instructed by Iterant support.
+> There is no default. The worker answers 500 rather than proxying to a host
+> you did not choose.
 
 ### `CACHE_TTL`
 
