@@ -55,14 +55,13 @@ Requests to `https://marketing.yourdomain.com/page` will be proxied.
 # Install dependencies
 npm install
 
-# Copy environment template
-cp .dev.vars.example .dev.vars
-
-# Edit .dev.vars with your BRAND_ID
-
-# Start development server
+# Set TARGET_HOST and BRAND_ID in wrangler.toml, then start the dev server
 npm run dev
 ```
+
+> `TARGET_HOST` and `BRAND_ID` are plain variables, not secrets, so they live
+> in `wrangler.toml`. Keep them out of `.dev.vars`: the Deploy to Cloudflare
+> button reads both files and would ask for each name twice, once masked.
 
 The worker will be available at `http://localhost:8787`.
 
